@@ -2442,6 +2442,121 @@ Details of a peer evaluation: The instructor may choose to see more details of o
 **Assumptions:**
 **Open Issues:**
 
+### **UC-INS-remind-non-submitters: The instructor reminds students who have not submitted**
+
+**UC ID and Name:** UC-INS-remind-non-submitters: Remind students who have not submitted
+
+**Created By:** Kritika Karanjit
+
+**Date Created:** September 30, 2026
+
+**Primary Actor:** instructor
+
+**Secondary Actors:**
+
+**Trigger:** The instructor indicates to identify students who have not submitted a required weekly activity report or peer evaluation and send them a reminder.
+
+**Description:** The instructor wants to identify students with an outstanding weekly activity report or peer evaluation and remind those students to submit the required work.
+
+**Preconditions:**
+
+- PRE-1. The instructor is logged into the system.
+
+- PRE-2. The instructor is assigned to the selected course section (BR-section-scoped-access).
+
+- PRE-3. The selected submission type and target week are available for the course section
+
+**Postconditions:**
+
+- POST-1. The system has identified and displayed the students who are eligible to receive a reminder.
+
+- POST-2. Reminder notifications have been sent to the students selected by the instructor, and the system records the reminder delivery result.
+
+**Main Success Scenario:**
+
+1. The instructor indicates to remind students who have not submitted a required weekly activity report or peer evaluation.
+
+2. The system asks the instructor to select the course section, submission type, and target week.
+
+3. The instructor selects the course section, submission type, and target week.
+
+4. The system verifies that the instructor is authorized to access the selected course section.
+
+5. The system identifies students who do not have a current submission for the selected submission type and target week.
+
+6. The system displays the students eligible for a reminder to the instructor.
+
+7. The instructor selects the students to receive reminders and confirms that reminders should be sent.
+
+8. The system sends a reminder to each selected eligible student and records the delivery result.
+
+9. Use case ends.
+
+**Extensions:**
+
+- **5a. A student is not assigned to a team:**
+  - 5a1. The system excludes the student from the reminder-eligible list because the student cannot submit the required artifact (BR-team-assignment-required).
+  - 5a2. The system continues evaluating the remaining students.
+
+- **5b. The submission window for the selected peer evaluation has closed:**
+  - 5b1. The system excludes students who have not completed the peer evaluation from the reminder-eligible list because the evaluation can no longer be submitted (BR-evaluation-submission-window).
+  - 5b2. The system continues evaluating the remaining students.
+
+- **5c. The selected week is not an active week for the selected peer evaluation:**
+  - 5c1. The system does not include students for that peer evaluation in the reminder-eligible list (BR-active-weeks).
+  - 5c2. The system informs the instructor that reminders cannot be sent for the selected peer evaluation.
+
+- **5d. A student previously submitted the required artifact but later deleted the submission:**
+  - 5d1. The system evaluates the student's current submission status.
+  - 5d2. Because the student has no current submission, the system treats the student as a non-submitter and includes the student in the reminder-eligible list if all other eligibility conditions are satisfied.
+
+- **5e. The instructor has already sent the maximum allowed reminder to a student for the selected submission type and target week:**
+  - 5e1. The system does not send another reminder to that student (BR-reminder-frequency-limit).
+  - 5e2. The system informs the instructor that the reminder limit has been reached.
+  - 5e3. The system continues processing the remaining eligible students.
+
+- **5f. The mail server rejects a student's email address:**
+  - 5f1. The system records the email delivery failure and logs the error.
+  - 5f2. The system continues processing the remaining eligible students.
+
+- **7a. A student becomes ineligible after the eligible list is displayed but before the reminder is sent:**
+  - 7a1. The system rechecks the student's current submission status and reminder eligibility before sending the reminder.
+  - 7a2. If the student is no longer eligible, the system does not send the reminder to that student.
+  - 7a3. The system continues processing the remaining selected students.
+
+**Priority:** High
+**Frequency of Use:** Approximately 2 users, average of 1 usage per week.
+**Business Rules:** BR-section-scoped-access, BR-team-assignment-required, BR-active-weeks, BR-evaluation-submission-window, BR-war-submission-window, BR-reminder-frequency-limit, CO-ferpa
+
+**Associated Information:**
+
+Reminder parameters:
+
+- Course section: The course section for which the instructor is authorized to send reminders.
+- Submission type: Weekly activity report or peer evaluation.
+- Target week: The week associated with the required submission.
+- Submission status:
+  - For a weekly activity report, the report is considered submitted when the student has at least one activity for the target week.
+  - For a peer evaluation, the evaluation is considered submitted when the student has completed the required evaluations for every required team member for the target week.
+  - A deleted submission does not count as submitted.
+- Eligible students: Students who have no current submission for the selected submission type and target week and satisfy   the reminder eligibility rules.
+- Reminder history: Previous successfully sent reminders for the student, submission type, and target week.
+- Delivery status: The result of each reminder delivery attempt.
+- Eligibility roster: The system uses the students currently enrolled in the selected course section when the reminder list is generated.
+- Team assignment: The system uses the student's current team assignment when determining whether the student is eligible for a reminder.
+
+**Related Use Cases:**
+UC-WAR-submit-report: Submit a weekly activity report
+UC-EVA-submit-evaluation: Submit a peer evaluation
+
+**Assumptions:**
+The instructor selects one course section, one submission type, and one target week when initiating the reminder.
+
+**Open Issues:**
+The time zone used to determine the calendar day for the reminder-frequency limit is not specified.
+
+
+
 ## **Templates and Provisioning**
 
 ### **UC-TPL-provision-documents: The course admin creates team documents from built-in templates**
@@ -4919,3 +5034,5 @@ File names include document type and team identifier.
 **Related Use Cases:** UC-AI-critique: Request a critique from the critique assistant; UC-AI-consult-project-assistant: Consult the project assistant; UC-CFG-configure-review-criteria: Configure the cross-document review criteria for a course section; UC-VAL-run-validation: Run validation (ReqLint) on the current document; UC-AI-review-proposal: Review and accept or reject an assistant proposal; UC-DOC-edit-document: Edit a section-based requirement document; UC-DOC-edit-use-case: Edit a use case.
 **Assumptions:**
 **Open Issues:**
+
+

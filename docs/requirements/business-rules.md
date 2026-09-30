@@ -46,6 +46,9 @@ These business rules apply across Project Pulse. The course-administration rules
 - **BR-evaluation-submission-window:** A student may submit a peer evaluation only for the previous week, and has that one week to complete it; both the initial submission and any later edits must occur within this window. A student who fails to complete a peer evaluation in that window cannot make it up, and an evaluation can no longer be changed once its window has closed.
 - **BR-evaluation-private-comment:** When submitting a peer evaluation, the evaluator may optionally include a private comment about the teammate being evaluated. A private comment is visible only to the instructor assigned to the course section (and course admin, per BR-role-based-access); it is never shown to the evaluatee or any other student on the team. Private comments exist to give students a safe channel to raise concerns early.
 - **BR-evaluation-visibility:** For a peer evaluation, a student may see only her own rubric criterion scores, public comments (not private comments — see BR-evaluation-private-comment), and overall grade.
+- **BR-reminder-frequency-limit:** The system may send at most one reminder to the same student for the same submission type and target week within a calendar day, regardless of which instructor initiated the reminder.
+- **BR-war-submission-window:** A weekly activity report for a week is due by Monday at 10:00 AM of the following week.
+- **BR-war-reminder-eligibility:** A weekly activity report is eligible for an instructor reminder after its Monday 10:00 AM deadline has passed and while the report remains available for submission.
 
 # **Access and Ownership**
 
